@@ -1,0 +1,225 @@
+.model small
+.stack 100h
+.data
+    num db 1
+    count db 5
+
+.code
+main:
+    mov ax, @data
+    mov ds, ax
+
+print_loop:
+    mov al, num
+    add al, '0'
+    mov dl, al
+    mov ah, 02h
+    int 21h
+
+    mov dl, ' '
+    mov ah, 02h
+    int 21h
+
+    mov al, num
+    add al, 2
+    mov num, al
+
+    dec count
+    jnz print_loop
+
+    mov ah, 4ch
+    int 21h
+end main
+
+
+
+
+
+.model small
+.stack 100h
+.data
+    nums db 8,6,4,2,0
+    i db 0
+
+.code
+main:
+    mov ax, @data
+    mov ds, ax
+
+next:
+    mov bl, i
+    mov al, nums[bx]
+    mov ah, 0
+    mov bl, 10
+    div bl
+    cmp al, 0
+    je one_digit
+    add al, '0'
+    mov dl, al
+    mov ah, 02h
+    int 21h
+
+one_digit:
+    add ah, '0'
+    mov dl, ah
+    mov ah, 02h
+    int 21h
+
+    mov dl, ' '
+    mov ah, 02h
+    int 21h
+
+    mov al, i
+    inc al
+    mov i, al
+    cmp al, 5
+    jne next
+
+    mov ah, 4ch
+    int 21h
+end main
+
+
+
+
+
+.model small
+.stack 100h
+.data
+    sum db 0
+
+.code
+main:
+    mov ax, @data
+    mov ds, ax
+
+    mov al, 1
+    add al, 2
+    add al, 3
+    mov sum, al
+
+    mov al, sum
+    mov ah, 0
+    mov bl, 10
+    div bl
+
+    cmp al, 0
+    je only_units
+
+    add al, '0'
+    mov dl, al
+    mov ah, 02h
+    int 21h
+
+only_units:
+    add ah, '0'
+    mov dl, ah
+    mov ah, 02h
+    int 21h
+
+    mov ah, 4ch
+    int 21h
+end main
+
+
+
+
+.model small
+.stack 100h
+.data
+    ch db ?
+    count db 10
+
+.code
+main:
+    mov ax, @data
+    mov ds, ax
+
+    mov ah, 01h
+    int 21h
+    mov ch, al
+
+print_loop:
+    mov dl, ch
+    mov ah, 02h
+    int 21h
+
+    mov dl, 13
+    mov ah, 02h
+    int 21h
+
+    mov dl, 10
+    mov ah, 02h
+    int 21h
+
+    dec count
+    jnz print_loop
+
+    mov ah, 4ch
+    int 21h
+end main
+
+
+
+
+.model small
+.stack 100h
+.data
+
+.code
+main:
+    mov ax, @data
+    mov ds, ax
+
+    mov cl, 'a'
+
+print_loop:
+    mov dl, cl
+    mov ah, 02h
+    int 21h
+
+    inc cl
+    cmp cl, 'z'+1
+    jne print_loop
+
+    mov ah, 4ch
+    int 21h
+end main
+
+
+
+
+
+.model small
+.stack 100h
+.data
+
+.code
+main:
+    mov ax, @data
+    mov ds, ax
+
+    mov cl, 9
+
+print_loop:
+    mov al, cl
+    add al, '0'
+    mov dl, al
+    mov ah, 02h
+    int 21h
+
+    mov dl, ','
+    mov ah, 02h
+    int 21h
+
+    dec cl
+    cmp cl, 0FFh
+    jne print_loop
+
+    mov ah, 4ch
+    int 21h
+end main
+
+
+
+
