@@ -1,0 +1,73 @@
+org 100h
+.data
+.code
+main proc
+    mov dl, 'A'
+    mov ah, 2
+    INT 21H
+    main endp
+end main
+
+
+
+
+
+org 100h
+.data
+.code
+main proc
+    mov dl, 'A'
+    mov ah, 2
+    INT 21H
+    mov dl, 'L'
+    mov ah, 2
+    INT 21H
+    mov dl, 'I'
+    mov ah, 2
+    INT 21H
+    mov dl, 'Z'
+    mov ah, 2
+    INT 21H
+    mov dl, 'A'
+    mov ah, 2
+    INT 21H
+    main endp
+end main
+
+
+
+
+
+org 100H
+.data
+.code
+main proc
+    mov ah, 1
+    INT 21H
+    sub al, 32
+    mov dl, al
+    mov ah, 2
+    INT 21H
+
+    mov ah, 1
+    INT 21H
+    sub al, 32
+    mov dl, al
+    mov ah, 2
+    INT 21H
+
+    mov ah, 1
+    INT 21H
+    sub al, 32
+    mov dl, al
+    mov ah, 2
+    INT 21H
+
+    mov ah, 1
+    INT 21H
+    sub al, 32
+    mov dl, al
+    mov ah, 2
+    INT 21H
+    main endp
+end main
