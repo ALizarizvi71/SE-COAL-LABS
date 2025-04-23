@@ -1,0 +1,127 @@
+.model small
+.stack 100h
+.data
+name_msg   DB 'Name: ALIZA', 0Dh, 0Ah, '$'
+uni_msg    DB 'University: RIPHAH INTERNATIONAL', 0Dh, 0Ah, '$'
+degree_msg DB 'Degree: Software Engineering', 0Dh, 0Ah, '$'
+
+.code
+main proc
+    mov ax, @data
+    mov ds, ax
+
+    ; Print Name
+    lea dx, name_msg
+    mov ah, 9
+    int 21h
+
+    ; Print University
+    lea dx, uni_msg
+    mov ah, 9
+    int 21h
+
+    ; Print Degree
+    lea dx, degree_msg
+    mov ah, 9
+    int 21h
+
+    ; Exit Program
+    mov ah, 4Ch
+    int 21h
+main endp
+end main
+
+
+
+
+
+
+
+.model small
+.stack 100h
+.data
+msg1 DB 'The user entered ', '$'
+char DB ?
+msg2 DB ' character$', 0Dh, 0Ah
+
+.code
+main proc
+    mov ax, @data
+    mov ds, ax
+
+    mov ah, 1
+    int 21h
+    mov char, al
+
+    mov dx, offset msg1
+    mov ah, 9
+    int 21h
+
+    mov dl, char
+    mov ah, 2
+    int 21h
+
+    mov dx, offset msg2
+    mov ah, 9
+    int 21h
+
+    mov ah, 4Ch
+    int 21h
+main endp
+end main
+
+
+
+
+
+
+.model small
+.stack 100h
+.data
+    msg1 DB 'Enter a character: $'
+    msg2 DB 'The user entered $'     ; Fixed part of output
+    char DB ?, '$'                   ; Variable to store user input
+    msg3 DB ' character.$', 13, 10, '$' ; End message
+
+.code
+main proc
+    mov ax, @data       ; Initialize data segment
+    mov ds, ax
+
+    ; Display message to prompt user
+    mov dx, offset msg1
+    mov ah, 9
+    int 21h
+
+    ; Read a character from user
+    mov ah, 1
+    int 21h
+    mov char, al        ; Store user input in char variable
+
+    ; Print newline
+    mov ah, 2
+    mov dl, 13
+    int 21h
+    mov dl, 10
+    int 21h
+
+    ; Display "The user entered "
+    mov dx, offset msg2
+    mov ah, 9
+    int 21h
+
+    ; Print the character entered
+    mov ah, 2
+    mov dl, char
+    int 21h
+
+    ; Display " character."
+    mov dx, offset msg3
+    mov ah, 9
+    int 21h
+
+    ; Exit program
+    mov ah, 4Ch
+    int 21h
+main endp
+end main
