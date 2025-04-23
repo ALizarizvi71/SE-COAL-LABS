@@ -1,0 +1,269 @@
+.model small
+.stack 100h
+.data
+    msg1 db 'Enter base: $'
+    msg2 db 13, 10, 'Enter height: $'
+    resultMsg db 13, 10, 'Area is: $'
+.code
+main:
+    mov ax, @data
+    mov ds, ax
+
+    ; Show message to enter base
+    lea dx, msg1
+    mov ah, 09h
+    int 21h
+
+    ; Read base
+    mov ah, 01h
+    int 21h
+    sub al, '0'
+    mov bl, al     ; Store base in BL
+
+    ; Show message to enter height
+    lea dx, msg2
+    mov ah, 09h
+    int 21h
+
+    ; Read height
+    mov ah, 01h
+    int 21h
+    sub al, '0'
+    mov bh, al     ; Store height in BH
+
+    ; Multiply base and height
+    mov al, bl
+    mul bh         ; AL = BL * BH
+
+    ; Divide by 2 (for ½ * base * height)
+    shr al, 1      ; AL = AL / 2
+    mov bl, al     ; Store final result in BL
+
+    ; Convert result to ASCII
+    aam            ; Convert to two-digit decimal (AH:AL)
+    add ax, 3030h  ; Convert to ASCII characters
+    mov bx, ax
+
+    ; Show result message
+    lea dx, resultMsg
+    mov ah, 09h
+    int 21h
+
+    ; Print result
+    mov dl, bh
+    mov ah, 02h
+    int 21h
+
+    mov dl, bl
+    mov ah, 02h
+    int 21h
+
+    ; Exit program
+    mov ah, 4Ch
+    int 21h
+end main
+
+
+
+
+
+.model small
+.stack 100h
+.data
+    msg1 db 'Enter first number: $'
+    msg2 db 13, 10, 'Enter second number: $'
+    resultMsg db 13, 10, 'Product is: $'
+.code
+main:
+    mov ax, @data
+    mov ds, ax
+
+    ; Show message to enter first number
+    lea dx, msg1
+    mov ah, 09h
+    int 21h
+
+    ; Read first number
+    mov ah, 01h
+    int 21h
+    sub al, '0'
+    mov bl, al     ; Store first number in BL
+
+    ; Show message to enter second number
+    lea dx, msg2
+    mov ah, 09h
+    int 21h
+
+    ; Read second number
+    mov ah, 01h
+    int 21h
+    sub al, '0'
+    mov bh, al     ; Store second number in BH
+.model small
+.stack 100h
+.data
+    msg1 db 'Enter first number: $'
+    msg2 db 13, 10, 'Enter second number: $'
+    resultMsg db 13, 10, 'Product is: $'
+.code
+main:
+    mov ax, @data
+    mov ds, ax
+
+    ; Show message to enter first number
+    lea dx, msg1
+    mov ah, 09h
+    int 21h
+
+    ; Read first number
+    mov ah, 01h
+    int 21h
+    sub al, '0'
+    mov bl, al     ; Store first number in BL
+
+    ; Show message to enter second number
+    lea dx, msg2
+    mov ah, 09h
+    int 21h
+
+    ; Read second number
+    mov ah, 01h
+    int 21h
+    sub al, '0'
+    mov bh, al     ; Store second number in BH
+
+    ; Multiply the two numbers
+    mov al, bl
+    mul bh         ; AL = BL * BH
+
+    ; Convert result to ASCII
+    aam            ; Adjust to 2-digit decimal in AH:AL
+    add ax, 3030h  ; Convert to ASCII
+    mov bx, ax
+
+    ; Show result message
+    lea dx, resultMsg
+    mov ah, 09h
+    int 21h
+
+    ; Print result digits
+    mov dl, bh
+    mov ah, 02h
+    int 21h
+
+    mov dl, bl
+    mov ah, 02h
+    int 21h
+
+    ; Exit program
+    mov ah, 4Ch
+    int 21h
+end main
+
+
+
+
+
+
+.model small
+.stack 100h
+.data
+    msg db 'Enter a number: $'
+    resultMsg db 13, 10, 'Square is: $'
+.code
+main:
+    mov ax, @data
+    mov ds, ax
+
+    ; Show message to enter number
+    lea dx, msg
+    mov ah, 09h
+    int 21h
+
+    ; Read character from user
+    mov ah, 01h
+    int 21h         ; AL has ASCII of number
+    sub al, '0'     ; Convert ASCII to number
+    mov bl, al      ; Store number in BL
+
+    ; Multiply number by itself (square)
+    mul bl          ; AL = AL * BL
+
+    ; Convert result to ASCII
+    aam             ; Convert to two ASCII digits (AH:AL)
+    add ax, 3030h   ; Convert to ASCII
+
+    ; Show result message
+    lea dx, resultMsg
+    mov ah, 09h
+    int 21h
+
+    ; Print result
+    mov dl, ah
+    mov ah, 02h
+    int 21h
+    mov dl, al
+    mov ah, 02h
+    int 21h
+
+    ; Exit program
+    mov ah, 4Ch
+    int 21h
+end main
+
+
+
+
+
+.stack 100h
+.data
+    msg db 'Enter a number: $'
+    resultMsg db 13, 10, 'Cube is: $'
+.code
+main:
+    mov ax, @data
+    mov ds, ax
+
+    ; Show message to enter number
+    lea dx, msg
+    mov ah, 09h
+    int 21h
+
+    ; Read number from user
+    mov ah, 01h
+    int 21h         ; AL has ASCII of number
+    sub al, '0'     ; Convert ASCII to number
+    mov bl, al      ; Store number
+    mov bh, al      ; Copy for later use
+
+    ; First multiply (square)
+    mul bl          ; AL = AL * BL
+    mov bl, al      ; Store square in BL
+
+    ; Multiply again to get cube
+    mov al, bl
+    mul bh          ; AL = Square * Original = Cube
+
+    ; Convert result to ASCII
+    aam             ; Convert to two ASCII digits (AH:AL)
+    add ax, 3030h   ; Convert digits to ASCII
+    mov bx, ax
+
+    ; Show result message
+    lea dx, resultMsg
+    mov ah, 09h
+    int 21h
+
+    ; Print result
+    mov dl, bh
+    mov ah, 02h
+    int 21h
+    mov dl, bl
+    mov ah, 02h
+    int 21h
+
+    ; Exit program
+    mov ah, 4Ch
+    int 21h
+end main
+
